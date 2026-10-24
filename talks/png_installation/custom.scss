@@ -1,0 +1,60 @@
+/*-- scss:defaults --*/
+// Colores tomados del logo del curso (hexágono): verde del título y morado del borde
+$verde:   #0b3d1e;
+$morado:  #5a1846;
+$dorado:  #bc955c;
+
+$body-bg: #ffffff;
+$body-color: #222222;
+$link-color: #1a5fa8;
+$presentation-heading-color: $verde;
+$presentation-heading-font-weight: 600;
+$presentation-font-size-root: 34px;
+$code-block-bg: #f6f8fa;
+$code-block-border-color: #e1e4e8;
+
+/*-- scss:rules --*/
+// Línea morada bajo cada título (sustituye el <hr> repetido en cada diapositiva)
+.reveal h2 {
+  padding-bottom: 0.25em;
+  border-bottom: 3px solid $morado;
+  margin-bottom: 0.6em;
+}
+
+// Diapositiva de portada: texto a la izquierda, hexágono a la derecha
+#title-slide { text-align: left; }
+#title-slide > * { width: 64%; margin-left: 0; }
+#title-slide .quarto-title-authors { justify-content: flex-start; }
+#title-slide .quarto-title-author { padding-left: 0; margin-right: 1.2em; }
+#title-slide h1.title { color: $verde; font-size: 1.9em; }
+#title-slide p.subtitle { color: $morado; }
+#title-slide p.date { color: #555; font-size: 0.6em; }
+
+// Logo del pie (logo horizontal de CENAPRECE)
+.reveal .slide-logo { max-height: 2.2rem !important; }
+.reveal .footer { font-size: 0.45em; }
+
+// Recuadros de aviso
+.reveal .nota {
+  border-left: 6px solid $dorado;
+  background: #fbf7f0;
+  padding: 0.4em 0.8em;
+  font-size: 0.8em;
+}
+
+.reveal .pequeno { font-size: 0.75em; }
+.reveal table { font-size: 0.7em; }
+.reveal .tachado { color: #888; }
+
+// Diagramas mermaid a todo el ancho de la diapositiva
+.reveal .cell-output-display .mermaid svg,
+.reveal div.mermaid svg {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 480px;
+}
+
+// Títulos que son enlaces (diapositivas de paquetes) en el mismo verde
+.reveal h2 a, .reveal h2 a:visited { color: $verde; }
+.reveal h2 a:hover { text-decoration: underline; }
