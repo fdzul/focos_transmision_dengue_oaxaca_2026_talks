@@ -1,0 +1,242 @@
+---
+title: "Geocoding API Key de Google"
+subtitle: "Módulo II · Focos de transmisión activa"
+author:
+  - Dr. Felipe Antonio Dzul Manzanilla
+  - Jonathan S. Mendoza Cruz
+date: 2026-10-24
+date-format: "[Actualizado:] YYYY-MM-DD"
+lang: es
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    logo: imagenes/logo_cenaprece.jpg
+    footer: "[github.com/fdzul](https://github.com/fdzul) · [dengueverse](https://fdzul.r-universe.dev)"
+    slide-number: c/t
+    chalkboard: true
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: github
+    preview-links: auto
+    transition: fade
+    title-slide-attributes:
+      data-background-image: imagenes/hex_curso.png
+      data-background-size: 26%
+      data-background-position: 94% 50%
+---
+
+## Temario
+
+:::: {.columns}
+::: {.column width="50%"}
+**En Google Cloud**
+
+- ¿Qué es geocodificar?
+- Crear el proyecto
+- Activar la facturación
+- Habilitar las APIs
+- Crear y restringir la clave
+- Costos y límites
+:::
+
+::: {.column width="50%"}
+**En R**
+
+- Guardar la clave de forma segura
+- Probar la clave
+- Geocodificar las bases del SINAVE
+- Buenas prácticas
+:::
+::::
+
+## ¿Qué es geocodificar?
+
+Convertir una **dirección** en **coordenadas** (latitud y longitud).
+
+```{mermaid}
+%%| fig-width: 10
+flowchart LR
+  A["Base del SINAVE<br/>calle, número, colonia,<br/>localidad, estado"] --> G["Geocoding API<br/>de Google"]
+  G --> C["Coordenadas<br/>lat, long"]
+  C --> M["Hotspots, cadenas<br/>de transmisión, LGCP"]
+  style G fill:#0b3d1e,color:#fff,stroke:#0b3d1e
+```
+
+::: {.nota}
+Sin coordenadas no hay análisis espacial: la geocodificación es el primer paso de los focos de transmisión activa y persistente.
+:::
+
+## Lo que vamos a hacer
+
+1. Entrar a [Google Cloud Console](https://console.cloud.google.com) con una cuenta de Gmail
+2. Crear un proyecto nuevo
+3. Activar la facturación (tarjeta de crédito o débito)
+4. Habilitar **Geocoding API** y **Maps Static API**
+5. Crear la clave de API
+6. Restringir la clave
+7. Guardar la clave en R y probarla
+
+## 1 · Entrar a Google Cloud Console
+
+- Ir a [console.cloud.google.com](https://console.cloud.google.com)
+- Iniciar sesión con una cuenta de **Gmail**
+- La primera vez, aceptar los términos del servicio y elegir el país
+
+::: {.nota}
+Usa una cuenta institucional o personal que vayas a conservar: la clave queda ligada a esa cuenta.
+:::
+
+## 2 · Crear un proyecto
+
+- En la barra superior, abrir el **selector de proyectos**
+- Clic en **Proyecto nuevo**
+- Nombrarlo, por ejemplo: `geocodificacion-dengue-oaxaca`
+- Clic en **Crear** y seleccionarlo en el selector
+
+::: {.nota}
+Un proyecto agrupa las APIs, las claves y la facturación. Conviene un proyecto por estado o por programa.
+:::
+
+## 3 · Activar la facturación
+
+- Menú ☰ → **Facturación** → **Vincular una cuenta de facturación**
+- Registrar los datos y una **tarjeta de crédito o débito**
+- Google la usa para verificar la identidad; dentro del uso gratuito mensual **no se hace ningún cobro**
+
+::: {.nota}
+Sin una cuenta de facturación activa, la Geocoding API responde con el error `REQUEST_DENIED`.
+:::
+
+## 4 · Habilitar las APIs
+
+Menú ☰ → **APIs y servicios** → **Biblioteca**
+
+Buscar y dar clic en **Habilitar** en cada una:
+
+| API | Para qué la usamos |
+|-----------------|------------------------------------------|
+| **Geocoding API** | Convertir los domicilios en coordenadas |
+| **Maps Static API** | Descargar mapas base de Google (`ggmap`) |
+
+## 5 · Crear la clave de API
+
+Menú ☰ → **APIs y servicios** → **Credenciales**
+
+- Clic en **+ Crear credenciales** → **Clave de API**
+- Copiar la clave que aparece (empieza con `AIza…`)
+- Clic en **Editar clave de API** para restringirla (siguiente paso)
+
+::: {.nota}
+La clave es como una contraseña ligada a tu tarjeta: no la compartas, no la pongas en una diapositiva ni la subas a GitHub.
+:::
+
+## 6 · Restringir la clave
+
+En la página de la clave:
+
+- **Nombre**: algo reconocible, por ejemplo `clave-geocoding-r`
+- **Restricciones de la API** → *Restringir clave* → marcar solo:
+  - Geocoding API
+  - Maps Static API
+- **Guardar**
+
+::: {.nota}
+Con la clave restringida, si alguien la obtiene solo puede usar esas dos APIs. Las restricciones por dirección IP no conviene usarlas en laptops que cambian de red.
+:::
+
+## Costos y límites
+
+- La Geocoding API y la Maps Static API están en la categoría **Essentials** de Google Maps Platform
+- Cada servicio Essentials incluye **10,000 solicitudes gratuitas al mes**; después se cobra por cada mil solicitudes
+- Recomendado:
+  - **Facturación → Presupuestos y alertas**: crear una alerta (p. ej. 1 USD) para recibir un correo si hay cargos
+  - **APIs y servicios → Geocoding API → Cuotas**: limitar las solicitudes por día
+
+[Precios vigentes: [developers.google.com/maps/billing-and-pricing](https://developers.google.com/maps/billing-and-pricing/pricing)]{.pequeno}
+
+## 7 · Guardar la clave en R
+
+Nunca escribas la clave dentro del script. Guárdala en el archivo `.Renviron`:
+
+```r
+# Abre el archivo .Renviron de tu usuario
+usethis::edit_r_environ()
+```
+
+Agrega estas dos líneas (con tu clave), guarda y **reinicia R**:
+
+```bash
+GGMAP_GOOGLE_API_KEY=AIza...tu_clave...
+GOOGLEGEOCODE_API_KEY=AIza...tu_clave...
+```
+
+La primera la usa **ggmap** y la segunda **tidygeocoder**.
+
+## Probar la clave
+
+```r
+library(ggmap)
+register_google(key = Sys.getenv("GGMAP_GOOGLE_API_KEY"))
+
+# Geocodificar una dirección
+geocode("Calle Hidalgo 204, San Felipe del Agua, Oaxaca de Juárez, Oaxaca, México")
+
+# Mapa estático (Maps Static API)
+get_googlemap(center = c(lon = -96.7135, lat = 17.0981), zoom = 15) |>
+  ggmap()
+```
+
+Si regresa coordenadas y dibuja el mapa, la clave funciona.
+
+## Geocodificar con denhotspots
+
+```r
+library(denhotspots)
+ggmap::register_google(key = Sys.getenv("GGMAP_GOOGLE_API_KEY"))
+
+# Vector de domicilios completos de la base del SINAVE
+addresses <- paste(x$calle, x$numero, x$colonia, x$localidad,
+                   "Oaxaca, México", sep = ", ")
+
+# Geocodifica y va guardando el avance en un archivo .rds
+geocoden(infile = "oaxaca_2026", address = addresses)
+```
+
+::: {.nota}
+Si la sesión se interrumpe, al volver a correr `geocoden()` continúa donde se quedó.
+:::
+
+## Alternativa: tidygeocoder
+
+```r
+library(tidygeocoder)
+
+casos_geo <- casos |>
+  geocode(address = direccion, method = "google")
+```
+
+Usa la variable `GOOGLEGEOCODE_API_KEY` del `.Renviron` y agrega las columnas `lat` y `long` a la tabla.
+
+## Buenas prácticas
+
+- **Una sola vez por domicilio**: guarda los resultados (`saveRDS()`) y no vuelvas a geocodificar lo mismo
+- **Domicilios completos**: calle, número, colonia, localidad, estado y país mejoran la precisión
+- **Revisa la precisión**: en la columna `accuracy`, `street_address` o `premise` es el domicilio; `route`, `neighborhood` o `locality` caen en la calle, la colonia o el centro de la localidad
+- **Protege la clave**: `.Renviron` fuera de GitHub; si se filtra, bórrala y crea otra en *Credenciales*
+
+## Errores comunes
+
+| Mensaje | Causa probable | Solución |
+|------------------|---------------------------|------------------------------|
+| `REQUEST_DENIED` | API no habilitada o sin facturación | Habilitar la API y vincular la facturación |
+| `API key not valid` | Clave mal copiada o borrada | Revisar el `.Renviron` y reiniciar R |
+| `OVER_QUERY_LIMIT` | Se alcanzó la cuota | Revisar las cuotas o esperar al día siguiente |
+| `ZERO_RESULTS` | Domicilio incompleto o con errores | Corregir y completar la dirección |
+
+## Contacto
+
+- **Bio**: <https://fdzul.github.io/web_site_fadm/>
+- **Correo**: <felipe.dzul.m@gmail.com>
+- **GitHub**: <https://github.com/fdzul>
+- **dengueverse**: <https://fdzul.r-universe.dev>
+- **Presentación**: <https://polite-treacle-c5a008.netlify.app/talks/api_key_google/>
