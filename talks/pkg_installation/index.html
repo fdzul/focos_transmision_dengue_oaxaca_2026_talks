@@ -230,7 +230,8 @@ Dr.&nbsp;Fabián Correa-Morales
 </div><div class="column" style="width:50%;">
 <p><strong>Los paquetes</strong></p>
 <ul>
-<li>Desde CRAN, GitHub, r-universe y archivo local</li>
+<li>Desde CRAN, GitHub, Bioconductor, r-universe y archivo local</li>
+<li>En Google Colab</li>
 <li><a href="https://cran.r-project.org/web/views/">CRAN Task Views</a></li>
 <li>Metapaquetes, universos y <em>verses</em></li>
 <li>El <strong>dengueverse</strong>: paquetes e instalación</li>
@@ -324,6 +325,9 @@ Dr.&nbsp;Fabián Correa-Morales
 </tr>
 </tbody>
 </table>
+<div class="nota">
+<p>Los paquetes los instala <strong>R</strong>, no el IDE: las mismas instrucciones <code>install.packages()</code>, <code>BiocManager::install()</code> y <code>pak::pkg_install()</code> funcionan igual en todos.</p>
+</div>
 </section>
 <section id="instalación-de-rstudio" class="slide level2">
 <h2>Instalación de RStudio</h2>
@@ -388,12 +392,28 @@ Dr.&nbsp;Fabián Correa-Morales
 </div>
 </div>
 </section>
+<section id="instalación-de-paquetes-desde-bioconductor" class="slide level2">
+<h2>Instalación de paquetes desde Bioconductor</h2>
+<p><a href="https://bioconductor.org">Bioconductor</a> es un repositorio de paquetes para bioinformática y genómica (secuencias, filogenia, genética de poblaciones de vectores).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># 1. Instalar el administrador de Bioconductor (desde CRAN)</span></span>
+<span id="cb12-2"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="co"># 2. Instalar uno o varios paquetes</span></span>
+<span id="cb12-5"><a href=""></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"Biostrings"</span>, <span class="st">"ggtree"</span>))</span>
+<span id="cb12-6"><a href=""></a></span>
+<span id="cb12-7"><a href=""></a><span class="co"># 3. Revisar la versión y que todo esté actualizado</span></span>
+<span id="cb12-8"><a href=""></a>BiocManager<span class="sc">::</span><span class="fu">version</span>()</span>
+<span id="cb12-9"><a href=""></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="nota">
+<p><code>pak</code> también instala desde Bioconductor: <code>pak::pkg_install("bioc::Biostrings")</code>.</p>
+</div>
+</section>
 <section id="instalación-desde-r-universe" class="slide level2">
 <h2>Instalación desde r-universe</h2>
 <p><a href="https://r-universe.dev">r-universe</a> compila los paquetes de GitHub y los distribuye <strong>ya compilados</strong>, como si fuera CRAN: no se necesitan Rtools ni Xcode.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"denhotspots"</span>,</span>
-<span id="cb12-2"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://fdzul.r-universe.dev"</span>,</span>
-<span id="cb12-3"><a href=""></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"denhotspots"</span>,</span>
+<span id="cb13-2"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://fdzul.r-universe.dev"</span>,</span>
+<span id="cb13-3"><a href=""></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="nota">
 <p>Es la forma más sencilla de instalar el dengueverse en las computadoras del curso.</p>
 </div>
@@ -404,47 +424,77 @@ Dr.&nbsp;Fabián Correa-Morales
 <ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Windows (.zip)</a></li><li><a href="#tabset-4-2">macOS / Linux (.tar.gz)</a></li><li><a href="#tabset-4-3">Buscar el archivo</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"C:/Users/usuario/Downloads/ggplot2_3.5.2.zip"</span>,</span>
-<span id="cb13-2"><a href=""></a>                 <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"win.binary"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"C:/Users/usuario/Downloads/ggplot2_3.5.2.zip"</span>,</span>
+<span id="cb14-2"><a href=""></a>                 <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"win.binary"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-4-2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"~/Downloads/gt_1.1.0.tar.gz"</span>,</span>
-<span id="cb14-2"><a href=""></a>                 <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"~/Downloads/gt_1.1.0.tar.gz"</span>,</span>
+<span id="cb15-2"><a href=""></a>                 <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-4-3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># Abre una ventana para seleccionar el archivo</span></span>
-<span id="cb15-2"><a href=""></a><span class="fu">install.packages</span>(<span class="fu">file.choose</span>(), <span class="at">repos =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="co"># Abre una ventana para seleccionar el archivo</span></span>
+<span id="cb16-2"><a href=""></a><span class="fu">install.packages</span>(<span class="fu">file.choose</span>(), <span class="at">repos =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
+</div>
+</section>
+<section id="instalación-de-paquetes-en-google-colab" class="slide level2">
+<h2>Instalación de paquetes en Google Colab</h2>
+<p>En <a href="https://colab.research.google.com">Colab</a>: <strong>Entorno de ejecución → Cambiar tipo de entorno → R</strong>.</p>
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">CRAN</a></li><li><a href="#tabset-5-2">Bioconductor</a></li><li><a href="#tabset-5-3">GitHub</a></li><li><a href="#tabset-5-4">dengueverse</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"sf"</span>, <span class="st">"tmap"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si falta una librería del sistema (p.&nbsp;ej. para <code>sf</code>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">system</span>(<span class="st">"apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-5-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb19-2"><a href=""></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"Biostrings"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-5-3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb20-2"><a href=""></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"fdzul/rgeomex"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-5-4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"denhotspots"</span>,</span>
+<span id="cb21-2"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://fdzul.r-universe.dev"</span>,</span>
+<span id="cb21-3"><a href=""></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="nota">
+<p>Colab corre en Linux: los paquetes de CRAN se compilan y pueden tardar varios minutos. Al cerrar la sesión <strong>se pierden</strong> y hay que reinstalarlos.</p>
 </div>
 </section>
 <section id="instalación-con-cran-task-views" class="slide level2">
 <h2>Instalación con CRAN Task Views</h2>
 <p>Las <a href="https://cran.r-project.org/web/views/">Task Views</a> agrupan los paquetes de un tema.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"ctv"</span>)</span>
-<span id="cb16-2"><a href=""></a></span>
-<span id="cb16-3"><a href=""></a><span class="co"># Solo los paquetes principales del tema (más rápido)</span></span>
-<span id="cb16-4"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Epidemiology"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-5"><a href=""></a></span>
-<span id="cb16-6"><a href=""></a><span class="co"># Todos los paquetes del tema</span></span>
-<span id="cb16-7"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Epidemiology"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"ctv"</span>)</span>
+<span id="cb22-2"><a href=""></a></span>
+<span id="cb22-3"><a href=""></a><span class="co"># Solo los paquetes principales del tema (más rápido)</span></span>
+<span id="cb22-4"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Epidemiology"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-5"><a href=""></a></span>
+<span id="cb22-6"><a href=""></a><span class="co"># Todos los paquetes del tema</span></span>
+<span id="cb22-7"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Epidemiology"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="desafío" class="slide level2">
 <h2>Desafío</h2>
 <p>Instalar los paquetes principales de tres Task Views:</p>
 <div class="panel-tabset">
-<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Spatial</a></li><li><a href="#tabset-5-2">SpatioTemporal</a></li><li><a href="#tabset-5-3">Epidemiology</a></li></ul>
+<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">Spatial</a></li><li><a href="#tabset-6-2">SpatioTemporal</a></li><li><a href="#tabset-6-3">Epidemiology</a></li></ul>
 <div class="tab-content">
-<div id="tabset-5-1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Spatial"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tabset-6-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Spatial"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="https://cran.r-project.org/web/views/Spatial.html">Ver la Task View</a></p>
 </div>
-<div id="tabset-5-2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"SpatioTemporal"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tabset-6-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"SpatioTemporal"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="https://cran.r-project.org/web/views/SpatioTemporal.html">Ver la Task View</a></p>
 </div>
-<div id="tabset-5-3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Epidemiology"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tabset-6-3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>ctv<span class="sc">::</span><span class="fu">install.views</span>(<span class="st">"Epidemiology"</span>, <span class="at">coreOnly =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="https://cran.r-project.org/web/views/Epidemiology.html">Ver la Task View</a></p>
 </div>
 </div>
@@ -490,7 +540,7 @@ Dr.&nbsp;Fabián Correa-Morales
 </div>
 <p><span style="color:#0b3d1e"><strong>Verde:</strong> en r-universe</span> · <span style="color:#0b3d1e"><strong>Borde verde:</strong> en GitHub</span> · <span style="color:#777"><strong>Punteado:</strong> en desarrollo</span></p>
 </section>
-<section id="dengueverse" class="slide level2">
+<section id="dengueverse-1" class="slide level2">
 <h2>dengueverse</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
@@ -595,9 +645,9 @@ Dr.&nbsp;Fabián Correa-Morales
 <section id="instalación-del-dengueverse" class="slide level2">
 <h2>Instalación del dengueverse</h2>
 <p>Una sola instrucción instala los paquetes del dengueverse <strong>y sus dependencias que no están en CRAN</strong> (<code>knox</code>, <code>ppmData</code>), ya compiladas:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"rgeomex"</span>, <span class="st">"denhotspots"</span>, <span class="st">"densnv"</span>, <span class="st">"boldenr"</span>, <span class="st">"popmex"</span>),</span>
-<span id="cb20-2"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://fdzul.r-universe.dev"</span>,</span>
-<span id="cb20-3"><a href=""></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"rgeomex"</span>, <span class="st">"denhotspots"</span>, <span class="st">"densnv"</span>, <span class="st">"boldenr"</span>, <span class="st">"popmex"</span>),</span>
+<span id="cb26-2"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://fdzul.r-universe.dev"</span>,</span>
+<span id="cb26-3"><a href=""></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="nota">
 <p>Desde GitHub (requiere Rtools/Xcode): <code>pak::pkg_install("fdzul/denepikit")</code>. <a href="https://github.com/fdzul/climex">climex</a> es un paquete de Python: <code>pip install climex</code>.</p>
 </div>
@@ -605,14 +655,14 @@ Dr.&nbsp;Fabián Correa-Morales
 <section id="deneggs-e-inla" class="slide level2">
 <h2>deneggs e INLA</h2>
 <p><a href="https://fdzul.github.io/deneggs/">deneggs</a> requiere <a href="https://www.r-inla.org">INLA</a>, que no está en CRAN, y <code>similiars</code>, que se instala desde r-universe:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"INLA"</span>,</span>
-<span id="cb21-2"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="fu">getOption</span>(<span class="st">"repos"</span>),</span>
-<span id="cb21-3"><a href=""></a>                           <span class="at">INLA =</span> <span class="st">"https://inla.r-inla-download.org/R/stable"</span>),</span>
-<span id="cb21-4"><a href=""></a>                 <span class="at">dep =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-5"><a href=""></a></span>
-<span id="cb21-6"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"deneggs"</span>,</span>
-<span id="cb21-7"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://fdzul.r-universe.dev"</span>,</span>
-<span id="cb21-8"><a href=""></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"INLA"</span>,</span>
+<span id="cb27-2"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="fu">getOption</span>(<span class="st">"repos"</span>),</span>
+<span id="cb27-3"><a href=""></a>                           <span class="at">INLA =</span> <span class="st">"https://inla.r-inla-download.org/R/stable"</span>),</span>
+<span id="cb27-4"><a href=""></a>                 <span class="at">dep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-5"><a href=""></a></span>
+<span id="cb27-6"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"deneggs"</span>,</span>
+<span id="cb27-7"><a href=""></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://fdzul.r-universe.dev"</span>,</span>
+<span id="cb27-8"><a href=""></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="satscan" class="slide level2">
 <h2>SaTScan</h2>
@@ -621,16 +671,16 @@ Dr.&nbsp;Fabián Correa-Morales
 <li>Descargar e instalar el programa <a href="https://www.satscan.org">SaTScan</a> (gratuito)</li>
 <li>Instalar el paquete de R que lo conecta:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"rsatscan"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"rsatscan"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="verificar-la-instalación" class="slide level2">
 <h2>Verificar la instalación</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>paquetes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sf"</span>, <span class="st">"tmap"</span>, <span class="st">"INLA"</span>, <span class="st">"rgeomex"</span>, <span class="st">"denhotspots"</span>,</span>
-<span id="cb23-2"><a href=""></a>              <span class="st">"deneggs"</span>, <span class="st">"densnv"</span>, <span class="st">"boldenr"</span>)</span>
-<span id="cb23-3"><a href=""></a></span>
-<span id="cb23-4"><a href=""></a><span class="fu">data.frame</span>(<span class="at">paquete   =</span> paquetes,</span>
-<span id="cb23-5"><a href=""></a>           <span class="at">instalado =</span> <span class="fu">vapply</span>(paquetes, requireNamespace,</span>
-<span id="cb23-6"><a href=""></a>                              <span class="fu">logical</span>(<span class="dv">1</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>paquetes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sf"</span>, <span class="st">"tmap"</span>, <span class="st">"INLA"</span>, <span class="st">"rgeomex"</span>, <span class="st">"denhotspots"</span>,</span>
+<span id="cb29-2"><a href=""></a>              <span class="st">"deneggs"</span>, <span class="st">"densnv"</span>, <span class="st">"boldenr"</span>)</span>
+<span id="cb29-3"><a href=""></a></span>
+<span id="cb29-4"><a href=""></a><span class="fu">data.frame</span>(<span class="at">paquete   =</span> paquetes,</span>
+<span id="cb29-5"><a href=""></a>           <span class="at">instalado =</span> <span class="fu">vapply</span>(paquetes, requireNamespace,</span>
+<span id="cb29-6"><a href=""></a>                              <span class="fu">logical</span>(<span class="dv">1</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Si alguno sale <code>FALSE</code>, revisar la siguiente diapositiva.</p>
 </section>
 <section id="problemas-comunes" class="slide level2">

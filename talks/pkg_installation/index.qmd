@@ -39,7 +39,8 @@ format:
 ::: {.column width="50%"}
 **Los paquetes**
 
-- Desde CRAN, GitHub, r-universe y archivo local
+- Desde CRAN, GitHub, Bioconductor, r-universe y archivo local
+- En Google Colab
 - [CRAN Task Views](https://cran.r-project.org/web/views/)
 - Metapaquetes, universos y *verses*
 - El **dengueverse**: paquetes e instalación
@@ -114,6 +115,10 @@ sudo apt install r-base-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev
 | [Visual Studio Code](https://code.visualstudio.com) | Editor general; requiere la extensión de R |
 | [Antigravity](https://antigravity.google) | IDE de Google con agentes de IA integrados |
 | [Google Colaboratory](https://colab.research.google.com) | R en el navegador, sin instalar nada |
+
+::: {.nota}
+Los paquetes los instala **R**, no el IDE: las mismas instrucciones `install.packages()`, `BiocManager::install()` y `pak::pkg_install()` funcionan igual en todos.
+:::
 
 ## Instalación de RStudio
 
@@ -196,6 +201,26 @@ renv::install("fdzul/rgeomex")
 
 :::
 
+## Instalación de paquetes desde Bioconductor
+
+[Bioconductor](https://bioconductor.org) es un repositorio de paquetes para bioinformática y genómica (secuencias, filogenia, genética de poblaciones de vectores).
+
+```r
+# 1. Instalar el administrador de Bioconductor (desde CRAN)
+install.packages("BiocManager")
+
+# 2. Instalar uno o varios paquetes
+BiocManager::install(c("Biostrings", "ggtree"))
+
+# 3. Revisar la versión y que todo esté actualizado
+BiocManager::version()
+BiocManager::valid()
+```
+
+::: {.nota}
+`pak` también instala desde Bioconductor: `pak::pkg_install("bioc::Biostrings")`.
+:::
+
 ## Instalación desde r-universe
 
 [r-universe](https://r-universe.dev) compila los paquetes de GitHub y los distribuye **ya compilados**, como si fuera CRAN: no se necesitan Rtools ni Xcode.
@@ -235,6 +260,52 @@ install.packages("~/Downloads/gt_1.1.0.tar.gz",
 install.packages(file.choose(), repos = NULL)
 ```
 
+:::
+
+## Instalación de paquetes en Google Colab
+
+En [Colab](https://colab.research.google.com): **Entorno de ejecución → Cambiar tipo de entorno → R**.
+
+::: {.panel-tabset}
+
+### CRAN
+
+```r
+install.packages(c("sf", "tmap"))
+```
+
+Si falta una librería del sistema (p. ej. para `sf`):
+
+```r
+system("apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev")
+```
+
+### Bioconductor
+
+```r
+install.packages("BiocManager")
+BiocManager::install("Biostrings")
+```
+
+### GitHub
+
+```r
+install.packages("remotes")
+remotes::install_github("fdzul/rgeomex")
+```
+
+### dengueverse
+
+```r
+install.packages("denhotspots",
+                 repos = c("https://fdzul.r-universe.dev",
+                           "https://cloud.r-project.org"))
+```
+
+:::
+
+::: {.nota}
+Colab corre en Linux: los paquetes de CRAN se compilan y pueden tardar varios minutos. Al cerrar la sesión **se pierden** y hay que reinstalarlos.
 :::
 
 ## Instalación con CRAN Task Views
@@ -481,4 +552,4 @@ Si alguno sale `FALSE`, revisar la siguiente diapositiva.
 - **Celular**: 999 958 0167
 - **GitHub**: <https://github.com/fdzul>
 - **dengueverse**: <https://fdzul.r-universe.dev>
-- **Presentación**: <https://calm-hummingbird-41cb33.netlify.app/talks/pkg_installation/#/>
+- **Presentación**: <https://polite-treacle-c5a008.netlify.app/talks/pkg_installation/#/>
