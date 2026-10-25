@@ -1,0 +1,8 @@
+<script>
+// Los mapas (leaflet, mapview, mapgl) calculan su tamaño al cargar; en revealjs
+// las diapositivas ocultas miden 0, así que se recalculan al cambiar de diapositiva.
+if (window.Reveal) {
+  Reveal.on('slidechanged', function () { window.dispatchEvent(new Event('resize')); });
+  Reveal.on('ready', function () { window.dispatchEvent(new Event('resize')); });
+}
+</script>
